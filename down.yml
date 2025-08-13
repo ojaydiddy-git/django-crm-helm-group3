@@ -6,7 +6,7 @@
       community.docker.docker_compose_v2:
         project_src: .
         files:
-        - mysql-adminer.yml
+        - docker-compose.yml
         state: absent
     - name: Remove mysql-client
       ansible.builtin.package:
