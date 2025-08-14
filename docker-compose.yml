@@ -1,13 +1,12 @@
 services:
-
   crm:
     build: .
     restart: always
     depends_on:
-    - db
+      - db
     ports:
-      - 8080:8080
-
+      - "8080:8080"
+    
   db:
     image: mysql
     restart: always
@@ -16,17 +15,17 @@ services:
       MYSQL_DATABASE: crm_db
       MYSQL_USER: crm_user
       MYSQL_PASSWORD: crmpass
-    # (this is just an example, not intended to be a production configuration)
     ports:
-      - 3306:3306
+      - "3306:3306"
     volumes:
       - mysql_db_data:/var/lib/mysql
+
   adminer_container:
     image: adminer:latest
     environment:
       ADMINER_DEFAULT_SERVER: db
     ports:
-      - 8078:8080
+      - "8078:8080"
 
 volumes:
   mysql_db_data:

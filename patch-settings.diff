@@ -6,8 +6,8 @@
  # Add your hosts to the list.
 -ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 -
-+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'codespace.ojaydiddy.site']
-+CSRF_TRUSTED_ORIGINS=['https://codespace.ojaydiddy.site']
++ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'codespace-dev.ojaydiddy.site']
++CSRF_TRUSTED_ORIGINS=['https://codespace-dev.ojaydiddy.site']
  # Database
  DATABASES = {
      'default': {
