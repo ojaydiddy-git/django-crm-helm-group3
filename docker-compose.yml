@@ -8,8 +8,9 @@ services:
       - "8080:8080"
     
   db:
-    image: mysql
+    image: mysql:8.0.43
     restart: always
+    #command: --skip-grant-tables --skip-networking=0
     environment:
       MYSQL_ROOT_PASSWORD: Secret5555
       MYSQL_DATABASE: crm_db
@@ -29,3 +30,8 @@ services:
 
 volumes:
   mysql_db_data:
+    driver: local
+    driver_opts:
+      type: "nfs"
+      o: "addr=10.172.27.15,nfsvers=4,rw" # add ',nolock' if you see lock errors
+      device: ":/mnt/application/class-crm-mysql"
