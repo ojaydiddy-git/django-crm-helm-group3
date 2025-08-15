@@ -59,6 +59,9 @@ git push -u origin main
 =======================================================================
 Added collaborators (Gitea UI → Repository → Settings → Collaborators → add teammates with Write).
 
+<img width="975" height="548" alt="image" src="https://github.com/user-attachments/assets/5f24ee14-6b46-42ae-844c-ffedef463cb8" />
+
+
 ========================================================================
 Part 2 — Use TrueNAS NFS for MySQL data (4 marks)
 =========================================================================
