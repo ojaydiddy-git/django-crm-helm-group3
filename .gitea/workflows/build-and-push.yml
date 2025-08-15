@@ -1,0 +1,38 @@
+name: Build & Push to Gitea Registry
+
+on:
+  push:
+    branches: ["main"]      # change if your default branch differs
+  workflow_dispatch: {}
+
+jobs:
+  build-and-push:
+    # IMPORTANT: this must match a label your runner advertises.
+    # Try 'ubuntu-latest' first. If the job stays "Queued", change to 'self-hosted' or 'docker'.
+    runs-on: self-hosted
+
+    env:
+      IMAGE: gitea.ojaydiddy.site/gitea_admin/django-crm-helm-group3
+
+    steps:
+      - name: Checkout
+        uses: https://github.com/actions/checkout@v4
+
+      - name: Log in to Gitea Container Registry
+        uses: https://github.com/docker/login-action@v3
+        with:
+          registry: gitea.ojaydiddy.site
+          username: ${{ secrets.REGISTRY_USER }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+
+      - name: Build & Push
+        uses: https://github.com/docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ env.IMAGE }}:latest
+            ${{ env.IMAGE }}:${{ github.sha }}
+          # Optional cache to speed up builds
+          cache-from: type=registry,ref=${{ env.IMAGE }}:buildcache
+          cache-to:   type=registry,ref=${{ env.IMAGE }}:buildcache,mode=max
