@@ -1,0 +1,39 @@
+name: Build & Push to Gitea Registry
+
+on:
+  push:
+    branches: ["main"]           # change if your default branch differs
+  workflow_dispatch: {}          # allow manual runs from the UI
+
+jobs:
+  build-and-push:
+    # IMPORTANT: this label must match one of your runner's labels.
+    # If your runner shows 'ubuntu-latest', leave as is.
+    # If it shows 'self-hosted' or 'docker', change this to that label.
+    runs-on: ubuntu-latest
+
+    env:
+      IMAGE: gitea.ojaydiddy.site/gitea_admin/django-crm-helm-group3
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Log in to Gitea Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: gitea.ojaydiddy.site
+          username: ${{ secrets.REGISTRY_USER }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+
+      - name: Build & Push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ env.IMAGE }}:latest
+            ${{ env.IMAGE }}:${{ github.sha }}
+          # Optional caching (faster incremental builds):
+          cache-from: type=registry,ref=${{ env.IMAGE }}:buildcache
+          cache-to: type=registry,ref=${{ env.IMAGE }}:buildcache,mode=max

@@ -43,3 +43,19 @@ Part 5. Consume the docker image from step 3 in your docker-compose.yml, use Kom
 Total. 20
 
 I hope that this works better than what I had before. Notice that I started with the mysql setup that you are used to from PROG8850. Hopefully the docker-compose.yml file will take you from working code to working code!
+
+======================================================================
+READ ME
+======================================================================
+
+Imported the starter repo into our Gitea:
+
+git clone https://github.com/rhildred/django-crm-helm.git django-crm-helm-group3
+cd django-crm-helm-group3
+git remote remove origin
+git remote add origin https://gitea.ojaydiddy.site/gitea_admin/django-crm-helm-group3.git
+git push -u origin main
+
+=======================================================================
+Added collaborators (Gitea UI → Repository → Settings → Collaborators → add teammates with Write).
+
